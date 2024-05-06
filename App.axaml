@@ -4,10 +4,6 @@
              xmlns:local="using:KeepMeOnline"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
   
     <Application.Styles>
         <FluentTheme />
@@ -15,10 +11,10 @@
 
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Assets/parrot-logo.ico" ToolTipText="Keep Me Online Tray Icon">
+            <TrayIcon Icon="/Assets/parrot-logo.ico" ToolTipText="Keep Me Online">
                 <TrayIcon.Menu>
                     <NativeMenu>
-                        <NativeMenuItem Header="Exit">
+                        <NativeMenuItem Header="Exit" Click="CloseApplication">
                         </NativeMenuItem>
                     </NativeMenu>
                 </TrayIcon.Menu>
