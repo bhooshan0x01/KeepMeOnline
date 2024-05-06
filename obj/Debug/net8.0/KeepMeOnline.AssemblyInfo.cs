@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KeepMeOnline")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32e38f0c8b6188a02bbad92fd5f82649d0f15a3c")]
 [assembly: System.Reflection.AssemblyProductAttribute("KeepMeOnline")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KeepMeOnline")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
