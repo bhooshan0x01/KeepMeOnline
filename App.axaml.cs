@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -9,9 +10,17 @@ namespace KeepMeOnline;
 
 public partial class App : Application
 {
+    private Timer? _timer;
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+
+        //Prevent system from sleeping
+        ImmortalMethods.PreventSleep();
+        
+        //Adjust the TimeSpan to change the interval initially 240 seconds
+        _timer = new Timer(state => ImmortalMethods.SimulateMouseMovement(), null, TimeSpan.Zero, TimeSpan.FromSeconds(240));
+
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -27,10 +36,9 @@ public partial class App : Application
     private void CloseApplication(object sender, EventArgs e)
     {
         //add logic to cleanup memory and backround process
-        System.Console.WriteLine("Exiting..");
+        _timer.Dispose();
+        ImmortalMethods.AllowSleep();
         Environment.Exit(0); //OS will exit app immediately no OnExit event will be called
-        System.Console.WriteLine("..Exited.."); // this will not execute
-
     }
 
     private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
