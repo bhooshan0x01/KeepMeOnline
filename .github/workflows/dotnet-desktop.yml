@@ -27,9 +27,6 @@ jobs:
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
-      # - name: Run tests
-      #   run: dotnet test --no-restore --verbosity normal
-
       - name: Publish application
         run: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true --self-contained true -o ${{ github.workspace }}/publish --no-restore
 
