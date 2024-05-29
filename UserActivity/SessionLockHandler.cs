@@ -21,8 +21,11 @@ namespace KeepMeOnline
         [DllImport("wtsapi32.dll")]
         private static extern bool WTSUnRegisterSessionNotification(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SetWindowLongPtr")]
+        private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SetWindowLong")]
+        private static extern IntPtr SetWindowLong32(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr CallWindowProc(IntPtr lpPrevWndFunc, IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
@@ -58,7 +61,14 @@ namespace KeepMeOnline
 
             if (_hiddenWindowHandle != IntPtr.Zero)
             {
-                _prevWndProc = SetWindowLongPtr(_hiddenWindowHandle, -4, Marshal.GetFunctionPointerForDelegate(_windowProc));
+                if (IntPtr.Size == 8)
+                {
+                    _prevWndProc = SetWindowLongPtr64(_hiddenWindowHandle, -4, Marshal.GetFunctionPointerForDelegate(_windowProc));
+                }
+                else
+                {
+                    _prevWndProc = SetWindowLong32(_hiddenWindowHandle, -4, Marshal.GetFunctionPointerForDelegate(_windowProc));
+                }
                 WTSRegisterSessionNotification(_hiddenWindowHandle, NOTIFY_FOR_THIS_SESSION);
             }
         }
@@ -85,7 +95,15 @@ namespace KeepMeOnline
             if (_hiddenWindowHandle != IntPtr.Zero)
             {
                 WTSUnRegisterSessionNotification(_hiddenWindowHandle);
-                SetWindowLongPtr(_hiddenWindowHandle, -4, _prevWndProc);
+
+                if (IntPtr.Size == 8)
+                {
+                    SetWindowLongPtr64(_hiddenWindowHandle, -4, _prevWndProc);
+                }
+                else
+                {
+                    SetWindowLong32(_hiddenWindowHandle, -4, _prevWndProc);
+                }
                 DestroyWindow(_hiddenWindowHandle);
             }
         }
