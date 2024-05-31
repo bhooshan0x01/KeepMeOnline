@@ -1,11 +1,13 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using threading = System.Threading;
 
 namespace KeepMeOnline;
 
@@ -17,11 +19,27 @@ public partial class App : Application
     private SessionLockHandler? _sessionLockHandler;
     private bool _isSessionLocked = false;
     private bool _isProgrammaticMovement;
+    private static threading.Mutex _mutex;
+    private static string _mutexNameFormat;
+    private static bool _createdNow;
+
+    static App()
+    {
+        var appName = Assembly.GetExecutingAssembly().GetName().Name;
+        var guid = Guid.NewGuid();
+        _mutexNameFormat = string.Format(appName, guid);
+        _mutex = new threading.Mutex(true, _mutexNameFormat, out _createdNow);
+    }
     public override void Initialize()
     {
         
         try
         {
+            if(!_createdNow)
+            {
+                Logger.LogMessage($"Already one app instance is running.");
+                return;
+            }
             AvaloniaXamlLoader.Load(this);
         }
         catch (Exception ex)
