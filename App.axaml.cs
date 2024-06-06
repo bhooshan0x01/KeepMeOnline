@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using KeepMeOnline.Views;
 using threading = System.Threading;
 
 namespace KeepMeOnline;
@@ -22,6 +23,7 @@ public partial class App : Application
     private static threading.Mutex _mutex;
     private static string _mutexNameFormat;
     private static bool _createdNow;
+    private AboutDialog _aboutDialog;
 
     static App()
     {
@@ -57,7 +59,7 @@ public partial class App : Application
             {
                 desktop.Startup += OnStartup;
                 desktop.Exit += OnExit;
-
+                desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             }
             base.OnFrameworkInitializationCompleted();
         }
@@ -186,6 +188,19 @@ public partial class App : Application
         }
     }
 
+    private void ShowAboutDialog(object? sender, EventArgs e)
+    {
+        if(_aboutDialog == null)
+        {
+            _aboutDialog = new AboutDialog();
+            _aboutDialog.Closed += (s, e) => _aboutDialog = null;
+            _aboutDialog.Show();
+        }
+        else{
+            _aboutDialog.Activate();
+        }
+    }
+
     private void CloseApplication(object? sender, EventArgs e)
     {        
         
@@ -197,7 +212,8 @@ public partial class App : Application
             _inactiveTimer?.Dispose();
             ImmortalMethods.AllowSleep();
             _sessionLockHandler?.Dispose();
-            Environment.Exit(0); //OS will exit app immediately no OnExit event will be called
+            // Environment.Exit(0); //OS will exit app immediately no OnExit event will be called
+            (ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.Shutdown();
         }
         catch (Exception ex)
         {

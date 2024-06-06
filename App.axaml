@@ -14,8 +14,9 @@
             <TrayIcon Icon="/Assets/parrot-logo.ico" ToolTipText="Keep Me Online">
                 <TrayIcon.Menu>
                     <NativeMenu>
-                        <NativeMenuItem Header="Exit" Click="CloseApplication">
-                        </NativeMenuItem>
+                        <NativeMenuItem Header="About" Click="" />
+
+                        <NativeMenuItem Header="Exit" Click="CloseApplication" />
                     </NativeMenu>
                 </TrayIcon.Menu>
             </TrayIcon>
