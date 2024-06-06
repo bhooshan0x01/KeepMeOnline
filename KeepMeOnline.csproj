@@ -8,11 +8,13 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <ApplicationIcon>Assets\parrot-logo.ico</ApplicationIcon>
-    <NoWarn>CS8616,CS8618,CS8625</NoWarn>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Copyright>bhooshan0x01 2024</Copyright>
+    <NoWarn>CS8616,CS8618,CS8625,CS8981,CS8604</NoWarn>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Copyright>© Bhushan Ramteke 2024</Copyright>
     <Company>http://bhushan.xyz</Company>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
   </PropertyGroup>
 
   <ItemGroup>
