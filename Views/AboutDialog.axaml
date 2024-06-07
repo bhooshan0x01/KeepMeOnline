@@ -22,7 +22,7 @@
                 <Run> Contact me </Run>
                 <InlineUIContainer>
                     <Button Content="bhushan7668@gmail.com" Background="Transparent" BorderBrush="Transparent"
-                        Foreground="Blue" Command="{Binding HyperLinkCommand}" Margin="0,0,0,20" />
+                        Foreground="Blue" Command="{Binding HyperLinkCommand}" Padding="0" Margin="0,0,0,20" />
                 </InlineUIContainer>
             </TextBlock.Inlines>
         </TextBlock>
