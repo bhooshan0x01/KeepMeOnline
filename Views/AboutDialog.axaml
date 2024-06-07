@@ -3,16 +3,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="KeepMeOnline.Views.AboutDialog"
+        xmlns:vm="using:KeepMeOnline.ViewModel"
+        x:DataType="vm:AboutViewModel"
+        x:CompileBindings="True"
         Width="300" Height="250"
         TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
         Icon="avares://KeepMeOnline/Assets/parrot-logo.ico"
         CanResize="False"
         Title="About">
 
-    <StackPanel Margin="10">
-        <TextBlock Text="About KeepMeOnline" FontSize="16" Margin="0,0,0,10" />
+    <StackPanel HorizontalAlignment="Center" Margin="10">
+        <TextBlock HorizontalAlignment="Center" Text="About KeepMeOnline" FontSize="16" Margin="0,0,0,10" />
         <Image Source="avares://KeepMeOnline/Assets/parrot.png" Width="75" Height="75" HorizontalAlignment="Center" Name="KeepMeOnline"></Image>
-        <TextBlock Text="Contact: http://bhushan.xyz" FontSize="12" Margin="0,0,0,10" />
+        <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+        <TextBlock HorizontalAlignment="Center">
+            <TextBlock.Inlines>
+                <Run> Contact me </Run>
+                <InlineUIContainer>\
+                    <Button Content="bhushan7668@gmail.com" Background="Transparent" BorderBrush="Transparent"
+                        Foreground="Blue" Command="{Binding HyperLinkCommand}" Margin="0,0,0,20" />
+                <InlineUIContainer>
+            <TextBlock.Inlines>
+        </TextBlock>
 
         <Button Content="Ok" HorizontalAlignment="Center" Click="OnOkClick" />
     </StackPanel>
